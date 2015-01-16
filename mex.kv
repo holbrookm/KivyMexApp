@@ -1,0 +1,217 @@
+#: import main main
+#: import ListAdapter kivy.adapters.listadapter.ListAdapter
+#: import rgb kivy.utils.get_color_from_hex
+
+MexRoot:
+<MexRoot>
+    LoginForm:
+
+<LoginForm>:
+    username_input: username_box
+    password_input: password_box
+    canvas:
+        Color:
+            rgba: 1,1,1,.9
+            #rgba: 0.95,0.42,0.13,1
+        Rectangle:
+            #source: 'images/logo-placeholder.gif'
+            #source: './images/wholesale.png'
+            #source: './images/Eircom.png'
+            size: root.size
+            pos: root.pos
+    
+    #DUMMY LAYOUT TO TAKE UP SPACE
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:    
+            orientation: "horizontal"
+            size_hint_y: 1.5
+            size_hint_x: 1
+            BoxLayout:
+                orientation: 'horizontal'
+                Label:
+                    size_hint_x: 1
+                Image:
+                    source: "./images/Eircom.png"
+                Label:
+                    size_hint_x: 1
+                
+
+
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint_x: 1
+            size_hint_y: 1
+            Label:
+                size_hint_x: .3
+                font_size: min(self.height, self.width)/5
+                text: "[color=606060][b]Username[/b][/color]"
+                markup: True
+            BoxLayout:
+                orientation: "vertical"
+                size_hint_x: .4
+                Label:
+                    size_hint_y: 1
+                    text: ''
+                
+                TextInput:
+                    size_hint_y: 2
+                    font_size: min(self.height, self.width)/2.5
+                    id: username_box
+                    text: root.username
+                    focus: True
+                    multiline: False
+                    on_text_validate:
+                
+                Label:
+                    size_hint_y: 1
+                    text: ''
+            Label:
+                size_hint_x: .3
+                text: ''
+        
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint_y: 1
+            Label:
+                size_hint_x: .3
+                font_size: min(self.height, self.width)/5
+                text: "[color=606060][b]Password[/b][/color]"
+                markup: True
+
+            BoxLayout:
+                orientation: "vertical"
+                size_hint_x: .4
+                Label:
+                    size_hint_y: 1
+                    text: ''
+                
+                TextInput:
+                    size_hint_y: 2
+                    font_size: min(self.height, self.width)/2.5
+                    id: password_box
+                    multiline: False
+                    password: True
+                    text: root.password
+                    on_text_validate: app.root.go_login(username_box, password_box) 
+                
+                Label:
+                    size_hint_y: 1
+                    text: ''
+            Label:
+                size_hint_x: .3
+                text: ''
+
+
+        BoxLayout:    
+            orientation: "horizontal"
+            size_hint_x: 1
+            size_hint_y: 1    
+
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint_x: 1
+            size_hint_y: .8
+
+            BoxLayout:
+                orientation: "horizontal"
+                Label:
+                    size_hint_x: .3
+                    text: ''
+                Button:
+                    size_hint_x: .2
+                    text: "Press to Login"
+                    font_size: min(self.height, self.width)/5
+                    color: .3,.3,.3,1
+                    background_color: 3,1.4, .4,1
+                    on_press: app.root.go_login(username_box, password_box)
+                Label:
+                    size_hint_x: .3
+                    text: ''
+
+        #DUMMY LAYOUT TO TAKE UP SPACE
+        BoxLayout:  
+            orientation: "horizontal"
+            size_hint_x: 1
+            size_hint_y: 1
+            Label:
+                text:""
+                
+
+
+# BEGIN SUBSCRIPTIONPAGE
+<SubscriptionPage>:
+    search_results: search_results_list
+    orientation: "vertical"
+    canvas:
+        Color:
+            rgba: 0.95,0.42,0.13,1
+        Rectangle:
+            # self here refers to the widget i.e BoxLayout
+            pos: self.pos
+            size: self.size
+
+    Image:
+        source: "./images/logo-eircom.png"
+    Image:
+        source: "./images/wholesale.png"
+    ListView:
+        id: search_results_list
+        adapter:
+            ListAdapter(data=[], cls=main.SubscriptionButton)
+    
+
+<SubscriptionButton>:
+    height: "50dp"
+    size_hint_y: None
+    font_size: 24
+    on_press: app.root.show_mob_only_sub_details(self.text)
+# END SUBSCRIPTIONBUTTON
+
+#BEGIN MEX SWITCH PAGE
+<MexSwitchPage>:
+    orientation: "vertical"
+    fixed_num: fixed_number_sub
+    mobile_num: mobile_number_sub
+
+    f2mstate: f2mdivert
+    m2fstate: m2fpresent
+    BoxLayout:
+        orientation: "horizontal"    
+        id: fixed_number_sub
+        Label:
+            font_size: 24
+            text: "Fixed Subscription  0{} \n Activate Call Diversion".format(root.fixed_number)
+        Switch:
+            id: f2mdivert
+            active: root.f2mstate.active
+            on_active: root.setF2MDiversionActive()
+
+    BoxLayout:
+        orientation: "horizontal"
+        id: mobile_number_sub    
+        Label:
+            font_size: 24
+            text: "Mobile Subscription 0{} \n Fixed CLI Presentation".format(root.mobile_number)
+        Switch:
+            id: m2fpresent
+            active: root.m2fstate.active
+            on_active: root.setM2FPresentationActive()
+
+
+#END MEX SWITCH PAGE
+
+# BEGIN INCORRECT PASSWORD PAGE 
+<IncorrectPasswordPage>
+    orientation: "vertical"
+
+    Label:
+        text:"Your Username/Password Details are incorrect. Please review."
+    Label:
+        text: root.login_status
+    Button:
+        text: "Press to return to LOGIN page. Review Login Details"
+        on_release: app.root.show_login_page()
+
+
+# END OF INCORRECT PASSWORD PAGE
