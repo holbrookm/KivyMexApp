@@ -6,6 +6,8 @@ MexRoot:
 <MexRoot>
     LoginForm:
 
+# BEGINNING OF LOGIN FORM
+
 <LoginForm>:
     username_input: username_box
     password_input: password_box
@@ -22,6 +24,8 @@ MexRoot:
     
     #DUMMY LAYOUT TO TAKE UP SPACE
     BoxLayout:
+        padding: '10dp'
+        spacing: '10dp'
         orientation: "vertical"
         BoxLayout:    
             orientation: "horizontal"
@@ -135,9 +139,10 @@ MexRoot:
             size_hint_x: 1
             size_hint_y: 1
             Label:
-                text:""
+                text:"Trial Version Only: Intellectectual Property Rights of Marc Holbrook"
+                font_size: min(self.height, self.width)/5
                 
-
+# END OF LOGIN FORM
 
 # BEGIN SUBSCRIPTIONPAGE
 <SubscriptionPage>:

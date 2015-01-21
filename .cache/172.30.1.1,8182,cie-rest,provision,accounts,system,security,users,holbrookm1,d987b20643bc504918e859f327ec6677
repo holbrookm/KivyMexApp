@@ -1,0 +1,46 @@
+status: 200
+content-length: 1262
+content-location: http://172.30.1.1:8182/cie-rest/provision/accounts/system/security/users/holbrookm1
+accept-ranges: bytes
+vary: Accept-Charset, Accept-Encoding, Accept-Language, Accept
+server: Restlet-Framework/2.1rc5
+date: Sun, 18 Jan 2015 20:13:05 GMT
+content-type: application/json; charset=UTF-8
+-varied-accept-encoding: gzip, deflate
+
+{
+  "rolesRef" : [ "/accounts/system/security/roles/VPN_SingleSubscription" ],
+  "subscriptionExceptions" : {
+    "/accounts/V10003650/subscriptions/SV18215908" : [ "PROFILE" ],
+    "/accounts/V10003650/subscriptions/SV851742003" : [ "PROFILE" ]
+  },
+  "accountExceptions" : {
+  },
+  "password" : "dLfUox/2rfpihk7ZFl8jOBeBWvM=",
+  "passwordSalt" : "Shi2JHrCWIE=",
+  "lastPasswordResetDate" : "2015-01-14T21:06:26Z",
+  "expirePasswordAfter" : 999,
+  "lockStatus" : "NOTLOCKED",
+  "accountRef" : "/accounts/V10003650/subscriptions/SV18215908",
+  "passwordResetRetry" : 0,
+  "landingPageType" : "Subscription",
+  "accountStatus" : "Active",
+  "email" : "marc.holbrook@gmail.com",
+  "autoGenerate" : false,
+  "confirmPassword" : null,
+  "notes" : null,
+  "subscriptionRef" : "/accounts/V10003650/subscriptions/SV18215908",
+  "hasTemporaryPassword" : false,
+  "forgottenPassword" : false,
+  "lastLogin" : "Sat Jan 17 15:38:38 GMT 2015",
+  "tempLockoutCounter" : 0,
+  "failedLoginCounter" : 0,
+  "tempLockDate" : null,
+  "fullLockDate" : null,
+  "failedLoginDate" : "2015-01-14 21:09:40",
+  "effectiveLockStatus" : "Not Used",
+  "lastModified" : "Wed Jan 14 21:06:26 GMT 2015",
+  "created" : "Wed Jan 14 11:46:12 GMT 2015",
+  "id" : "holbrookm1",
+  "version" : "1.0"
+}

@@ -1,0 +1,1157 @@
+status: 200
+content-length: 26671
+content-location: http://172.30.1.1:8182/cie-rest/provision/accounts/V10003650/subscriptions/SV18215908
+accept-ranges: bytes
+vary: Accept-Charset, Accept-Encoding, Accept-Language, Accept
+server: Restlet-Framework/2.1rc5
+date: Sat, 17 Jan 2015 00:01:45 GMT
+content-type: application/json; charset=UTF-8
+-varied-accept-encoding: gzip, deflate
+
+{
+  "attributes" : [ {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "routineNum1",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "routineRoutTdrRef",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "follEndGroup",
+    "version" : "1.0"
+  }, {
+    "value" : "0",
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "fonTermNmr",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "presentCli",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "follMeAct",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "gvnsDigAdd",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "lang",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "trafAgGroup",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "RoutineNmr2",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "RoutineNmr1",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "cong",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "routineEndGroup",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "trafAgEndGroup",
+    "version" : "1.0"
+  }, {
+    "value" : "Switched",
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "idType",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "callDivNmr2",
+    "version" : "1.0"
+  }, {
+    "value" : "0",
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "fonPrivNmr",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "cdEndGroup",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "vpnSpeedDialTableRef",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "follMeNum",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "volumeRef",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "follMeNmr",
+    "version" : "1.0"
+  }, {
+    "value" : "Both",
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "subType",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "volumeAct",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "callDivNum1",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "noAns",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "volNmr",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "subBarListRef",
+    "version" : "1.0"
+  }, {
+    "value" : "018215908",
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "dra",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "rangeSub",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "subAllowListRef",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "imsGroup",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "imsEndGroup",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "migrated",
+    "version" : "1.0"
+  }, {
+    "value" : false,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "AddFive",
+    "version" : "1.0"
+  }, {
+    "value" : false,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "AddTen",
+    "version" : "1.0"
+  }, {
+    "value" : false,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "AddSix",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "AdvODREndGroup",
+    "version" : "1.0"
+  }, {
+    "value" : false,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "AddNine",
+    "version" : "1.0"
+  }, {
+    "value" : false,
+    "inherited" : false,
+    "allowedPermissionActions" : [ "READ", "UPDATE" ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "cliMap",
+    "version" : "1.0"
+  }, {
+    "value" : false,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "AddTwenty",
+    "version" : "1.0"
+  }, {
+    "value" : 0,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "Ratio8",
+    "version" : "1.0"
+  }, {
+    "value" : false,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "AddThree",
+    "version" : "1.0"
+  }, {
+    "value" : 0,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "Ratio5",
+    "version" : "1.0"
+  }, {
+    "value" : 0,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "Ratio3",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "RatioGroup",
+    "version" : "1.0"
+  }, {
+    "value" : "851742001",
+    "inherited" : false,
+    "allowedPermissionActions" : [ "READ", "UPDATE" ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "mobExNmr",
+    "version" : "1.0"
+  }, {
+    "value" : false,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "AddFourteen",
+    "version" : "1.0"
+  }, {
+    "value" : 0,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "Ratio20",
+    "version" : "1.0"
+  }, {
+    "value" : false,
+    "inherited" : false,
+    "allowedPermissionActions" : [ "READ", "UPDATE" ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "mobExTSub",
+    "version" : "1.0"
+  }, {
+    "value" : 0,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "Ratio19",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "RatioEndGroup",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "mobExEndGroup",
+    "version" : "1.0"
+  }, {
+    "value" : 0,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "Ratio11",
+    "version" : "1.0"
+  }, {
+    "value" : 0,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "Ratio13",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "RatioNum16",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "RatioNum14",
+    "version" : "1.0"
+  }, {
+    "value" : false,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "TDRAct",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "RatioNum10",
+    "version" : "1.0"
+  }, {
+    "value" : false,
+    "inherited" : false,
+    "allowedPermissionActions" : [ "READ", "UPDATE" ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "mobExSub",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "RatioNum19",
+    "version" : "1.0"
+  }, {
+    "value" : false,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "accDivAct",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "RatioNum20",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "TDRTP1Num",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "RatioNum2",
+    "version" : "1.0"
+  }, {
+    "value" : false,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "AddSeven",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "RatioNum7",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "exchpref",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "RatioNum4",
+    "version" : "1.0"
+  }, {
+    "value" : false,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "RatioActive",
+    "version" : "1.0"
+  }, {
+    "value" : false,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "AddEight",
+    "version" : "1.0"
+  }, {
+    "value" : false,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "AddTwelve",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "routineRoutAct",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "routineNum2",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "NoAnsTime",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "callDivAct",
+    "version" : "1.0"
+  }, {
+    "value" : "0",
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "gvnsDigDel",
+    "version" : "1.0"
+  }, {
+    "value" : "0",
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "terminatingNmr",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "follGroup",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "screenEndGroup",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "callDivNmr1",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "volGroup",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "busy",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "pin",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "screenGroup",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "cdGroup",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "cdc",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "callDivNum2",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "smallSiteAct",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "routineGroup",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "volumeNum",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "volEndGroup",
+    "version" : "1.0"
+  }, {
+    "value" : false,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "AddFifteen",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "routineRoutAnncRef",
+    "version" : "1.0"
+  }, {
+    "value" : false,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "AddFour",
+    "version" : "1.0"
+  }, {
+    "value" : false,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "AddSixteen",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "mobExGroup",
+    "version" : "1.0"
+  }, {
+    "value" : 0,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "Ratio9",
+    "version" : "1.0"
+  }, {
+    "value" : false,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "AddThirteen",
+    "version" : "1.0"
+  }, {
+    "value" : 0,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "Ratio7",
+    "version" : "1.0"
+  }, {
+    "value" : 0,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "Ratio6",
+    "version" : "1.0"
+  }, {
+    "value" : 0,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "Ratio4",
+    "version" : "1.0"
+  }, {
+    "value" : 0,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "Ratio2",
+    "version" : "1.0"
+  }, {
+    "value" : "1234",
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "mexPin",
+    "version" : "1.0"
+  }, {
+    "value" : false,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "AddNineteen",
+    "version" : "1.0"
+  }, {
+    "value" : false,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "AddEleven",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "AdvTDRGroup",
+    "version" : "1.0"
+  }, {
+    "value" : 0,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "Ratio18",
+    "version" : "1.0"
+  }, {
+    "value" : 0,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "Ratio17",
+    "version" : "1.0"
+  }, {
+    "value" : 0,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "Ratio10",
+    "version" : "1.0"
+  }, {
+    "value" : 0,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "Ratio12",
+    "version" : "1.0"
+  }, {
+    "value" : 0,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "Ratio14",
+    "version" : "1.0"
+  }, {
+    "value" : 0,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "Ratio15",
+    "version" : "1.0"
+  }, {
+    "value" : 0,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "Ratio16",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "RatioNum15",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "RatioNum13",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "RatioNum11",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "RatioNum12",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "RatioNum18",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "RatioNum17",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "ODRLookupRef",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "TDRTP2Num",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "routineRoutAnncAct",
+    "version" : "1.0"
+  }, {
+    "value" : false,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "AddSeventeen",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "RatioNum3",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "RatioNum1",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "RatioNum9",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "RatioNum6",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "RatioNum5",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "AdvODRGroup",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "TDRCalendarRef",
+    "version" : "1.0"
+  }, {
+    "value" : true,
+    "inherited" : false,
+    "allowedPermissionActions" : [ "READ", "UPDATE" ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "cdpnMap",
+    "version" : "1.0"
+  }, {
+    "value" : false,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "ODRAct",
+    "version" : "1.0"
+  }, {
+    "value" : "false",
+    "inherited" : false,
+    "allowedPermissionActions" : [ "READ", "UPDATE" ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "mobexAct",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : true,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "AdvTDREndGroup",
+    "version" : "1.0"
+  }, {
+    "value" : 0,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "Ratio1",
+    "version" : "1.0"
+  }, {
+    "value" : false,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "AddEighteen",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "inherited" : false,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "RatioNum8",
+    "version" : "1.0"
+  } ],
+  "uid" : 1417696851323,
+  "status" : "Active",
+  "allowTags" : false,
+  "resolveKeys" : [ {
+    "value" : "18215908",
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "cli",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "auth",
+    "version" : "1.0"
+  }, {
+    "value" : "A18215908",
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "private",
+    "version" : "1.0"
+  }, {
+    "value" : null,
+    "allowedPermissionActions" : [ ],
+    "lastModified" : null,
+    "created" : null,
+    "id" : "gvnsCid",
+    "version" : "1.0"
+  } ],
+  "scopeAccountRef" : "/accounts/VPN_17014_Garda",
+  "domainRef" : "/applications/VPN_App/domains/VPN_Dom",
+  "owningAccount" : "/accounts/V10003650",
+  "subscriptionTags" : [ ],
+  "lastModified" : "2015-01-16 23:29:04.104522",
+  "created" : "2014-12-04 12:40:51.323750",
+  "id" : "SV18215908",
+  "version" : "1.0"
+}
