@@ -6,8 +6,6 @@ MexRoot:
 <MexRoot>
     LoginForm:
 
-# BEGINNING OF LOGIN FORM
-
 <LoginForm>:
     username_input: username_box
     password_input: password_box
@@ -24,8 +22,6 @@ MexRoot:
     
     #DUMMY LAYOUT TO TAKE UP SPACE
     BoxLayout:
-        padding: '10dp'
-        spacing: '10dp'
         orientation: "vertical"
         BoxLayout:    
             orientation: "horizontal"
@@ -138,40 +134,35 @@ MexRoot:
             orientation: "horizontal"
             size_hint_x: 1
             size_hint_y: 1
-            Label:
-                text:"Trial Version Only: Intellectectual Property Rights of Marc Holbrook"
-                font_size: min(self.height, self.width)/5
+            MarcLabel:
+            
+               
+#<BoxLayout>
+#    canvas.before:
+#        BorderImage:
+            # BorderImage behaves like the CSS BorderImage
+#            border: 10, 10, 10, 10
+#            source: './images/Eircom.png'
+#            pos: self.pos
+#            size: self.size
                 
-# END OF LOGIN FORM
-
-# BEGIN SUBSCRIPTIONPAGE
-<SubscriptionPage>:
-    search_results: search_results_list
-    orientation: "vertical"
-    canvas:
+# BASE CANVAS COLOUR
+<CustomLayout>
+    canvas.before:
         Color:
-            rgba: 0.95,0.42,0.13,1
+            rgba: 1, 1, 1, .9
         Rectangle:
-            # self here refers to the widget i.e BoxLayout
             pos: self.pos
             size: self.size
 
-    Image:
-        source: "./images/logo-eircom.png"
-    Image:
-        source: "./images/wholesale.png"
-    ListView:
-        id: search_results_list
-        adapter:
-            ListAdapter(data=[], cls=main.SubscriptionButton)
-    
-
-<SubscriptionButton>:
-    height: "50dp"
-    size_hint_y: None
-    font_size: 24
-    on_press: app.root.show_mob_only_sub_details(self.text)
-# END SUBSCRIPTIONBUTTON
+<MarcLabel>
+    Label:
+        text: " Copyright Marc Holbrook © "
+        font_size: min(self.height, self.width) / 3.
+        color: 0x77 / 255., 0x6e / 255., 0x65 / 255., 1.
+        #bold: True
+        halign: 'justify'
+        valign:'middle'
 
 #BEGIN MEX SWITCH PAGE
 <MexSwitchPage>:
@@ -181,27 +172,42 @@ MexRoot:
 
     f2mstate: f2mdivert
     m2fstate: m2fpresent
-    BoxLayout:
-        orientation: "horizontal"    
-        id: fixed_number_sub
-        Label:
-            font_size: 24
-            text: "Fixed Subscription  0{} \n Activate Call Diversion".format(root.fixed_number)
-        Switch:
-            id: f2mdivert
-            active: root.f2mstate.active
-            on_active: root.setF2MDiversionActive()
 
-    BoxLayout:
-        orientation: "horizontal"
-        id: mobile_number_sub    
-        Label:
-            font_size: 24
-            text: "Mobile Subscription 0{} \n Fixed CLI Presentation".format(root.mobile_number)
-        Switch:
-            id: m2fpresent
-            active: root.m2fstate.active
-            on_active: root.setM2FPresentationActive()
+    CustomLayout:
+        AsyncImage:
+            opacity: .1
+            source: './images/Eircom.png'
+            size_hint: 1, 1
+            pos_hint: {'center_x':.5, 'center_y': .5}
+
+        BoxLayout:
+            orientation: 'vertical'
+
+            BoxLayout:
+                orientation: "horizontal"    
+                id: fixed_number_sub
+                Label:
+                    font_size: 24
+                    text: "Fixed Subscription  0{} \n Activate Call Diversion".format(root.fixed_number)
+                Switch:
+                    id: f2mdivert
+                    active: root.f2mstate.active
+                    on_active: root.setF2MDiversionActive()
+
+            BoxLayout:
+                orientation: "horizontal"
+                id: mobile_number_sub    
+                Label:
+                    font_size: 24
+                    text: "Mobile Subscription 0{} \n Fixed CLI Presentation".format(root.mobile_number)
+                Switch:
+                    id: m2fpresent
+                    active: root.m2fstate.active
+                    size_hint_x: None
+                    size_hint_y: None
+                    pos: self.pos
+                    size: self.size
+                    on_active: root.setM2FPresentationActive()
 
 
 #END MEX SWITCH PAGE
