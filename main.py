@@ -1,13 +1,18 @@
 from kivy.app import App
 from kivy.properties import ObjectProperty, StringProperty, BooleanProperty
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.network.urlrequest import UrlRequest
 from kivy.factory import Factory
 from kivy.uix.listview import ListItemButton
 from kivy.uix.switch import Switch
 from kivy.uix.textinput import TextInput
+from kivy.uix.label import Label
 from kivy.storage.jsonstore import JsonStore 
+
+from kivy.utils import get_color_from_hex
+from kivy.graphics import Color, BorderImage
 
 from Crypto.Cipher import DES
 import os.path
@@ -40,34 +45,15 @@ class MexRoot(BoxLayout):
         super(MexRoot, self).__init__(**kwargs)
         self.store = JsonStore("mex_store.json")
 
+    def set_error_page(self, message):
+        """ This func should call an error page"""
+        self.clear_widgets()
+        if self.incorrect_password_page is None:
+            self.incorrect_password_page = IncorrectPasswordPage()
+            self.incorrect_password_page.login_status = message
+        self.add_widget(self.incorrect_password_page)
+        return
 
-    def identify_mob_fixed_vpn_sub_type(self, subs):
-        """ This function will accept the list of two subs and set variables with each path name. 
-        """
-        debug.p("FUNC ::::    MexRoot.identify_mob_fixed_vpn_subs")
-        number_of_subs = len(subs)
-        debug.p(number_of_subs)
-        if number_of_subs == 1:  #Mobile Only Subscription
-            self.mex_switch_page.mobile_number_href = subs[0]
-            result = 1
-        elif number_of_subs ==2: # Mobile & Fixed Subscription
-            if int(subs[0].find('SV8')) > 0:
-                self.mex_switch_page.mobile_number_href = subs[0]
-                self.mex_switch_page.fixed_number_href = subs[1]
-                debug.p(subs[0].find('SV8'))
-                debug.p ("if 1" + subs[1])
-                result = 2
-            elif int(subs[1].find('SV8')) > 0:
-                self.mex_switch_page.mobile_number_href = subs[1]
-                self.mex_switch_page.fixed_number_href = subs[0] 
-                debug.p ("if 2" + subs[0])           
-                result = 2
-            else:
-                debug.p(' ERROR ERROR ERRORERRORERRORERRORERRORERROR')
-                result = 0
-        else:   # Error condition
-            result = 0
-        return result
 
     def store_details(self, username, password):
         debug.p("FUNC ::::    MexRoot.store_details")
@@ -93,24 +79,47 @@ class MexRoot(BoxLayout):
                 debug.p('IOError writing mex_store.json')
                 pass
         return
-    
-    def set_error_page(self, message):
-        """ This func should call an error page"""
-        self.clear_widgets()
-        if self.incorrect_password_page is None:
-            self.incorrect_password_page = IncorrectPasswordPage()
-            self.incorrect_password_page.login_status = message
-        self.add_widget(self.incorrect_password_page)
-        return
+   
+    def identify_sub_type(self, subs):
+        """ This function will accept the list of two subs and set variables with each path name. 
+        return 2 for F2M subscription
+        return 1 for Mob Only
+        return 0 for error
+        """
+        debug.p("FUNC ::::    MexRoot.identify_sub_type")
+        number_of_subs = len(subs)
+        debug.p(number_of_subs)
+        if number_of_subs == 1:  #Mobile Only Subscription
+            self.mex_switch_page.mobile_number_href = subs[0]
+            result = 1
+        elif number_of_subs ==2: # Mobile & Fixed Subscription
+            if int(subs[0].find('SV8')) > 0:
+                self.mex_switch_page.mobile_number_href = subs[0]
+                self.mex_switch_page.fixed_number_href = subs[1]
+                debug.p(subs[0].find('SV8'))
+                debug.p ("if 1" + subs[1])
+                result = 2
+            elif int(subs[1].find('SV8')) > 0:
+                self.mex_switch_page.mobile_number_href = subs[1]
+                self.mex_switch_page.fixed_number_href = subs[0] 
+                debug.p ("if 2" + subs[0])           
+                result = 2
+            else:
+                debug.p(' ERROR ERROR ERRORERRORERRORERRORERRORERROR')
+                result = 0
+        else:   # Error condition
+            result = 0
+        return result
+
 
     def go_login(self, username, password):
         debug.p("FUNC ::::    MexRoot.go_login")
         self.clear_widgets()
-        if self.subscription_page is None:
-            self.subscription_page = SubscriptionPage()
         if self.mex_switch_page is None:
             self.mex_switch_page = MexSwitchPage()
         self.username_input = username
+        self.mex_switch_page.username_input = username
+        self.mex_switch_page.password_input = password
         self.password_input = password
         self.store_details(username, password)
         print(str(self.password_input.text))
@@ -121,6 +130,7 @@ class MexRoot(BoxLayout):
         except RuntimeError:
             print "ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR"
             self.set_error_page("Network Error: Please check Network Connectivity!")
+            
         else:
             if status == 401:  # Unauthorised Access/Authentication Failure
                 self.set_error_page(conn['description'])
@@ -139,41 +149,37 @@ class MexRoot(BoxLayout):
                 except RuntimeError:
                     print "ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR"
                     self.set_error_page("Mex Sub Error: Network Error: Please check Network Connectivity!")
-
                 else:
                     debug.p(conn) 
                     subscriptions = ["{}".format(d['href']) for d in conn['results']]
                     debug.p(subscriptions)
-                    result = self.identify_mob_fixed_vpn_sub_type(subscriptions)
-                    result = 1
-                    if result ==1:
-                        # Mobile Only Subscription
-                        self.mex_switch_page.mobile_number = get_sub_number_only(self.mex_switch_page.mobile_number_href)
-                        self.clear_widgets()
-                        self.mex_switch_page.getSubscriptionMexSettingsMobileOnly(self.username_input, self.password_input,self.mex_switch_page.mobile_number_href)        
-                        self.add_widget(self.mex_switch_page)
-
-                    elif result ==2:
-                        #Fixed & Mobile Subscription
-                        self.mex_switch_page.fixed_number = get_sub_number_only(self.mex_switch_page.fixed_number_href)
-                        self.mex_switch_page.mobile_number = get_sub_number_only(self.mex_switch_page.mobile_number_href)
-                        if(self.mex_switch_page.getSubscriptionMexSettingsFixedMobile(self.username_input, self.password_input,self.mex_switch_page.fixed_number_href)):
-                            self.clear_widgets()
+                    sub_type = self.identify_sub_type(subscriptions)
+                    if sub_type == 1:
+                        #MObile Only Sub
+                        pass
+                    elif sub_type ==2:
+                        # Fixed & Mobile Type Sub
+                        debug.p(self.mex_switch_page.fixed_number_href)
+                        debug.p(self.mex_switch_page.mobile_number_href)
+                        x = self.mex_switch_page.getSubscriptionMexSettingsMobile(self.username_input, self.password_input, self.mex_switch_page.mobile_number_href)
+                        y = self.mex_switch_page.getSubscriptionMexSettingsFixed(self.username_input, self.password_input, self.mex_switch_page.fixed_number_href)
+                        
+                        debug.p(x)
+                        debug.p(y)
+                        if x and y == True:
                             self.add_widget(self.mex_switch_page)
                         else:
-                            self.set_error_page(" Error Condition generated : SHITTTTTTTTT!!!!!!")
-                        pass
-                    elif result ==0: # Error Condition
-                        print "ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR"
-                        self.set_error_page(" Error Condition generated : Should not really hit here!!!!!!!")
+                            self.set_error_page(' 1 Incorrect Subscription Type, Please contact Eircom Administrator')
+
                     else:
-                        pass
-                    
-                
+                        self.set_error_page('2 Incorrect Subscription Type, Please contact Eircom Administrator')
+
             else:
                 print "ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR"
-                self.set_error_page("FINAL ELSE: Network Error: Please check Network Connectivity!")
-
+                if self.incorrect_password_page is None:
+                    self.incorrect_password_page = IncorrectPasswordPage()
+                    self.incorrect_password_page.login_status = "FINAL ELSE: Network Error: Please check Network Connectivity!"
+                self.add_widget(self.incorrect_password_page)
         return 
 
     def show_login_page(self):
@@ -185,7 +191,6 @@ class MexRoot(BoxLayout):
         return
 
     def show_mob_only_sub_details(self, subscription):
-        # Probably Obsolete
         debug.p("FUNC ::::    MexRoot.show_mob_only_sub_details")
         print ("ENTERING  show_mob_only_details ################################")
         if self.mex_switch_page is None:
@@ -211,29 +216,16 @@ class MexRoot(BoxLayout):
 
 
 
-
-
 class MexSwitchPage(BoxLayout):
-
-    class M2FActivateSwitch(Switch):
-        debug.p("FUNC ::::    MexSwitchPage.M2FActivateSwitch")
-            
-        pass
-
-    class F2MActivateSwitch(Switch):
-        debug.p("FUNC ::::    MexSwitchPage.F2MActivateSwitch")
-            
-        pass
-
     debug.p("CLASS ::::    MexSwitchPage")
     fixed_number = StringProperty()
-    fixed_number_href = StringProperty()
     mobile_number = StringProperty()
-    mobile_number_href = StringProperty()
+    cli_to_map_to = StringProperty()
+    number_to_forward_to = StringProperty()
     MO_SUB = BooleanProperty()
     FT_SUB = BooleanProperty()
-    m2fstate = ObjectProperty(M2FActivateSwitch)
-    f2mstate = ObjectProperty(F2MActivateSwitch)
+    m2fstate = ObjectProperty()
+    f2mstate = ObjectProperty()
     username_input = ObjectProperty()
     password_input = ObjectProperty()
     subscription_id = StringProperty()
@@ -241,83 +233,96 @@ class MexSwitchPage(BoxLayout):
     createdDate = ""
     subscription_href = StringProperty()
 
+    class M2FActivateSwitch(Switch):
+        debug.p("FUNC ::::    MexSwitchPage.M2FActivateSwitch")
+        pass
+
+    class F2MActivateSwitch(Switch):
+        debug.p("FUNC ::::    MexSwitchPage.F2MActivateSwitch")
+        pass
 
 
-    def __init__(self, **kwargs):
-        debug.p("FUNC ::::    MexSwitchPage.__init__")
-
-        return
-
-    
-
-    def getSubscriptionMexSettingsMobileOnly(self, username, password, subscription):
-        debug.p("FUNC ::::    MexSwitchPage.getSubscriptionMexSettings")
-        debug.p("FUNC: getSubscriptionMexSettings ++++++++++++++++++++++++++++++++++++++++")
-
+    def getSubscriptionMexSettingsMobile(self, username, password, subscription):
+        debug.p("FUNC ::::    MexSwitchPage.getSubscriptionMexSettingsMobile")
         self.subscription_href = subscription
         self.username_input = username
         self.password_input = password
         details = cie_connect.get_mobile_only_sub_details(username.text, password.text,subscription)
-        debug.p(details)
-
+        print details
         self.subscription_id = details['id']
         self.lastModified_Date = details['lastModified']
         self.createdDate = details['created']
-        for val in details['attributes']:
-            if val['id'] == 'mobExSub':
-                self.MO_SUB = val['value']
-            if val['id'] == 'cliMap':
-                self.m2fstate.active= val['value']
-        
-        debug.p(self.MO_SUB)
-        debug.p(self.m2fstate.active)
-        
-        return
 
-    def getSubscriptionMexSettingsFixedMobile(self, username, password, subscription):
-        debug.p("FUNC ::::    MexSwitchPage.getSubscriptionMexSettingsFixedMobile")
-        debug.p(subscription)
-        self.subscription_href = subscription
-        self.username_input = username
-        self.password_input = password
-        details = cie_connect.get_mobile_only_sub_details(username.text, password.text,subscription)
-        debug.p(details)
-
-        self.subscription_id = details['id']
-        self.lastModified_Date = details['lastModified']
-        self.createdDate = details['created']
+        result = True # Unless set otherwise in Loop below
         for val in details['attributes']:
-            if val['id'] == 'mobExSub':
+            if val['id'] == 'mobexAct':
+                if val['value'] != 'MexOriginating': 
+                # Mex Service Not Active for Mob Sub or Error .. 
+                    result = False # Set Mex Act
+                
+            if val['id'] == 'mobExSub': # Test for MO sub and MEX Active
                 if val['value'] == None:
                     self.MO_SUB = False
                 else:
                     self.MO_SUB = val['value']
 
-            if val['id'] == 'cliMap' and self.MO_SUB == True:
+            if val['id'] == 'cliMap':
                 self.m2fstate.active= val['value']
-            else:
-                self.m2fstate.active= False
+            if val['id'] == 'mobExNmr':
+                self.cli_to_map_to = val['value']
+        
+        
+        debug.p ("\n\n\n")
+        debug.p(self.cli_to_map_to)
+        debug.p(self.MO_SUB)
+        debug.p(self.m2fstate.active)
+        debug.p(self.username_input.text)
+        debug.p(self.subscription_id)
+        debug.p(self.lastModified_Date)
+        return result
 
-            if val['id'] == 'mobExTSub':
+    def getSubscriptionMexSettingsFixed(self, username, password, subscription):
+        debug.p("FUNC ::::    MexSwitchPage.getSubscriptionMexSettingsFixed")
+        self.subscription_href = subscription
+        self.username_input = username
+        self.password_input = password
+        details = cie_connect.get_mobile_only_sub_details(username.text, password.text,subscription)
+        print details
+        self.subscription_id = details['id']
+        self.lastModified_Date = details['lastModified']
+        self.createdDate = details['created']
+
+        result = True # Unless set otherwise in Loop below
+        for val in details['attributes']:
+            if val['id'] == 'mobexAct':
+                if val['value'] != 'MexTerminating': 
+                # Mex Service Not Active for Mob Sub or Error .. 
+                    result = False # Set Mex Act
+                
+            if val['id'] == 'mobExTSub': # Test for MO sub and MEX Active
                 if val['value'] == None:
+                    debug.p('mobExTSub Value is:  ')
+                    debug.p(val['value'])
                     self.FT_SUB = False
                 else:
+                    debug.p('mobExTSub Value is:  ')
+                    debug.p(val['value'])
                     self.FT_SUB = val['value']
-            if val['id'] == 'cdpnMap' and self.FT_SUB == True:
-                self.f2mstate.active = val['value']
-            else:
-                self.f2mstate.active = False
 
-        print ("\n\n\n\n\n\n\n\n\n\n")
-        print self.MO_SUB
-        print self.m2fstate.active
-        print self.FT_SUB
-        print self.f2mstate.active
-        print self.username_input.text
-        print self.subscription_id
-        print self.lastModified_Date
-
-        return True
+            if val['id'] == 'cdpnMap':
+                self.f2mstate.active= val['value']
+            if val['id'] == 'mobExNmr':
+                self.number_to_forward_to = val['value']
+        
+        debug.p ("\n\n\n")
+        debug.p(self.number_to_forward_to)
+        debug.p(self.FT_SUB)
+        debug.p(self.f2mstate.active)
+        debug.p(self.username_input.text)
+        debug.p(self.subscription_id)
+        debug.p(self.lastModified_Date)
+        
+        return result
 
     def setF2MDiversionActive(self):
         debug.p("FUNC ::::    MexSwitchPage.setF2MDiversionActive")
@@ -343,15 +348,6 @@ class MexSwitchPage(BoxLayout):
         return
     pass
 
-
-class SubscriptionPage(BoxLayout):
-    debug.p("CLASS :::::: SubscriptionPage")
-    pass
-
-
-class SubscriptionButton(ListItemButton):
-    debug.p("CLASS :::::: SubscriptionButton")
-    pass
 
 
 
@@ -405,6 +401,11 @@ class IncorrectPasswordPage(BoxLayout):
 
     pass
 
+class CustomLayout(FloatLayout):
+    pass
+
+class MarcLabel(Label):
+    pass
 
 class MexApp(App):
     debug.p("CLASS ::::    MexApp")
