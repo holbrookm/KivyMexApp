@@ -231,10 +231,14 @@ class MexSwitchPage(BoxLayout):
     f2mstate = ObjectProperty()
     username_input = ObjectProperty()
     password_input = ObjectProperty()
-    subscription_id = StringProperty()
-    lastModified_Date = ""
-    createdDate = ""
-    subscription_href = StringProperty()
+    fixed_subscription_id = StringProperty()
+    mobile_subscription_id = StringProperty()
+    fixed_lastModified_Date = ""
+    fixed_createdDate = ""
+    mobile_lastModified_Date = ""
+    mobile_createdDate = ""
+    mobile_subscription_href = StringProperty()
+    fixed_subscription_href = StringProperty()
 
     class M2FActivateSwitch(Switch):
         debug.p("FUNC ::::    MexSwitchPage.M2FActivateSwitch")
@@ -247,14 +251,14 @@ class MexSwitchPage(BoxLayout):
 
     def getSubscriptionMexSettingsMobile(self, username, password, subscription):
         debug.p("FUNC ::::    MexSwitchPage.getSubscriptionMexSettingsMobile")
-        self.subscription_href = subscription
+        self.mobile_subscription_href = subscription
         self.username_input = username
         self.password_input = password
         details = cie_connect.get_mobile_only_sub_details(username.text, password.text,subscription)
         print details
-        self.subscription_id = details['id']
-        self.lastModified_Date = details['lastModified']
-        self.createdDate = details['created']
+        self.mobile_subscription_id = details['id']
+        self.mobile_lastModified_Date = details['lastModified']
+        self.mobile_createdDate = details['created']
 
         result = True # Unless set otherwise in Loop below
         for val in details['attributes']:
@@ -270,7 +274,13 @@ class MexSwitchPage(BoxLayout):
                     self.MO_SUB = val['value']
 
             if val['id'] == 'cliMap':
+                debug.p('###############################################################')
+                debug.p(val['value'])
+                debug.p('###############################################################')
                 self.m2fstate.active= val['value']
+                debug.p('###############################################################')
+                debug.p(val['value'])
+                debug.p('###############################################################')
             if val['id'] == 'mobExNmr':
                 self.cli_to_map_to = val['value']
         
@@ -280,20 +290,20 @@ class MexSwitchPage(BoxLayout):
         debug.p(self.MO_SUB)
         debug.p(self.m2fstate.active)
         debug.p(self.username_input.text)
-        debug.p(self.subscription_id)
-        debug.p(self.lastModified_Date)
+        debug.p(self.mobile_subscription_id)
+        debug.p(self.mobile_lastModified_Date)
         return result
 
     def getSubscriptionMexSettingsFixed(self, username, password, subscription):
         debug.p("FUNC ::::    MexSwitchPage.getSubscriptionMexSettingsFixed")
-        self.subscription_href = subscription
+        self.fixed_subscription_href = subscription
         self.username_input = username
         self.password_input = password
         details = cie_connect.get_mobile_only_sub_details(username.text, password.text,subscription)
         print details
-        self.subscription_id = details['id']
-        self.lastModified_Date = details['lastModified']
-        self.createdDate = details['created']
+        self.fixed_subscription_id = details['id']
+        self.fixed_lastModified_Date = details['lastModified']
+        self.fixed_createdDate = details['created']
 
         result = True # Unless set otherwise in Loop below
         for val in details['attributes']:
@@ -322,8 +332,8 @@ class MexSwitchPage(BoxLayout):
         debug.p(self.FT_SUB)
         debug.p(self.f2mstate.active)
         debug.p(self.username_input.text)
-        debug.p(self.subscription_id)
-        debug.p(self.lastModified_Date)
+        debug.p(self.fixed_subscription_id)
+        debug.p(self.fixed_lastModified_Date)
         
         return result
 
@@ -332,15 +342,15 @@ class MexSwitchPage(BoxLayout):
         print "**********ACTIVATE F2M Divert          " + str(self.f2mstate.active)
 
         results = cie_connect.changeMexF2MState(self.username_input.text, self.password_input.text, 
-            self.subscription_href, self.f2mstate.active, self.lastModified_Date, 
-            self.createdDate, self.subscription_id )
+            self.fixed_subscription_href, self.f2mstate.active, self.fixed_lastModified_Date, 
+            self.fixed_createdDate, self.fixed_subscription_id )
 
         #debug.p(results)
 	try:
-            vibrator.vibrate(2)
+            vibrator.vibrate(1)
         except:
-            popup = Popup(title='Test popup',
-            content=Label(text='Hello world'),
+            popup = Popup(title='<setF2MDiversionActive></setF2MDiversionActive>',
+            content=Label(text='setF2MDiversionActive'),
             size_hint=(None, None), size=(400, 400))	
             popup.open()            
             pass
@@ -352,8 +362,8 @@ class MexSwitchPage(BoxLayout):
         print "###################ACTIVATE M2F Presentation" + str(self.m2fstate.active)
         
         results = cie_connect.changeMexM2FState(self.username_input.text, self.password_input.text, 
-            self.subscription_href, self.m2fstate.active, self.lastModified_Date,
-            self.createdDate, self.subscription_id )
+            self.mobile_subscription_href, self.m2fstate.active, self.mobile_lastModified_Date,
+            self.mobile_createdDate, self.mobile_subscription_id )
 
         #debug.p(results)
         try:
@@ -374,10 +384,10 @@ class MexSwitchPage(BoxLayout):
             # This is almost identical to the java code for the vibrator
             vibrator = activity.getSystemService(Context.VIBRATOR_SERVICE)
 
-            vibrator.vibrate(10000)  # The value is in milliseconds - this is 10s
+            vibrator.vibrate(500)  # The value is in milliseconds - this is 10s
         except:
-            popup = Popup(title='Test popup',
-            content=Label(text='Hello world'),
+            popup = Popup(title='vibrate 500',
+            content=Label(text='setM2FPresentationActive'),
             size_hint=(None, None), size=(400, 400))
             popup.open() 
             
