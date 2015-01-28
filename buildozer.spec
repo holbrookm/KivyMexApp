@@ -1,10 +1,10 @@
 [app]
 
 # (str) Title of your application
-title = My Application
+title = MeX Application
 
 # (str) Package name
-package.name = myapp
+package.name = mexapp
 
 # (str) Package domain (needed for android/ios packaging)
 package.domain = org.test
@@ -29,23 +29,23 @@ source.include_exts = py,png,jpg,kv,atlas
 #version.filename = %(source.dir)s/main.py
 
 # (str) Application versioning (method 2)
-version = 1.2.0
+version = 1.2.6
 
 # (list) Application requirements
 # comma seperated e.g. requirements = sqlite3,kivy
-requirements = kivy
+requirements = kivy,pycrypto,pysocks,httplib2, plyer, pyjnius
 
 # (list) Garden requirements
 #garden_requirements =
 
 # (str) Presplash of the application
-#presplash.filename = %(source.dir)s/data/presplash.png
+presplash.filename = %(source.dir)s/images/Eircom.png
 
 # (str) Icon of the application
-#icon.filename = %(source.dir)s/data/icon.png
+icon.filename = %(source.dir)s/images/Eircom.png
 
 # (str) Supported orientation (one of landscape, portrait or all)
-orientation = landscape
+orientation = portrait 
 
 # (bool) Indicate if the application should be fullscreen or not
 fullscreen = 1
@@ -56,7 +56,7 @@ fullscreen = 1
 #
 
 # (list) Permissions
-#android.permissions = INTERNET
+android.permissions = INTERNET, VIBRATE
 
 # (int) Android API to use
 #android.api = 14
@@ -100,7 +100,7 @@ fullscreen = 1
 
 # (str) python-for-android branch to use, if not master, useful to try
 # not yet merged features.
-#android.branch = master
+android.branch = master
 
 # (str) OUYA Console category. Should be one of GAME or APP
 # If you leave this blank, OUYA support will not be enabled

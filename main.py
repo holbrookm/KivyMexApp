@@ -10,7 +10,9 @@ from kivy.uix.switch import Switch
 from kivy.uix.textinput import TextInput
 from kivy.uix.label import Label
 from kivy.storage.jsonstore import JsonStore 
-
+from kivy.uix.popup import Popup
+from plyer import vibrator
+from jnius import autoclass
 from kivy.utils import get_color_from_hex
 from kivy.graphics import Color, BorderImage
 
@@ -20,7 +22,8 @@ import debug
 import cie_connect
 import json
 import urllib
-
+import kivy
+kivy.require('1.8.0')
 
 
 def get_sub_number_only(number):
@@ -63,7 +66,7 @@ class MexRoot(BoxLayout):
         pad = lambda s: s +(BLOCK_SIZE - len(s) % BLOCK_SIZE) * PADDING
         des = DES.new('01234567', DES.MODE_ECB)         # This is the decryption hash equivalent
         secret_pass = des.encrypt(pad(s))               # we use this hash to encrypt the password
-        debug.p(secret_pass)
+        #debug.p(secret_pass)
         try:
             f = open('workfile', 'w')
             f.write(secret_pass)
@@ -332,9 +335,17 @@ class MexSwitchPage(BoxLayout):
             self.subscription_href, self.f2mstate.active, self.lastModified_Date, 
             self.createdDate, self.subscription_id )
 
-        print results
-
-        return
+        #debug.p(results)
+	try:
+            vibrator.vibrate(2)
+        except:
+            popup = Popup(title='Test popup',
+            content=Label(text='Hello world'),
+            size_hint=(None, None), size=(400, 400))	
+            popup.open()            
+            pass
+        finally:
+            return
 
     def setM2FPresentationActive(self):
         debug.p("FUNC ::::    MexSwitchPage.setM2FPresentationActive")
@@ -344,9 +355,35 @@ class MexSwitchPage(BoxLayout):
             self.subscription_href, self.m2fstate.active, self.lastModified_Date,
             self.createdDate, self.subscription_id )
 
-        print results
-        return
-    pass
+        #debug.p(results)
+        try:
+            #vibrator.vibrate(2)
+            # 'autoclass' takes a java class and gives it a Python wrapper
+         
+
+            # Context is a normal java class in the Android API
+            Context = autoclass('android.content.Context')
+
+            # PythonActivity is provided by the Kivy bootstrap app in python-for-android
+            PythonActivity = autoclass('org.renpy.android.PythonActivity')
+
+            # The PythonActivity stores a reference to the currently running activity
+            # We need this to access the vibrator service
+            activity = PythonActivity.mActivity
+
+            # This is almost identical to the java code for the vibrator
+            vibrator = activity.getSystemService(Context.VIBRATOR_SERVICE)
+
+            vibrator.vibrate(10000)  # The value is in milliseconds - this is 10s
+        except:
+            popup = Popup(title='Test popup',
+            content=Label(text='Hello world'),
+            size_hint=(None, None), size=(400, 400))
+            popup.open() 
+            
+            pass
+        finally:
+            return
 
 
 
