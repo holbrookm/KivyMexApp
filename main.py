@@ -23,6 +23,8 @@ import cie_connect
 import json
 import urllib
 import kivy
+from time import sleep
+
 kivy.require('1.8.0')
 
 
@@ -153,9 +155,9 @@ class MexRoot(BoxLayout):
                     print "ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR"
                     self.set_error_page("Mex Sub Error: Network Error: Please check Network Connectivity!")
                 else:
-                    debug.p(conn) 
+                    #debug.p(conn) 
                     subscriptions = ["{}".format(d['href']) for d in conn['results']]
-                    debug.p(subscriptions)
+                    #debug.p(subscriptions)
                     sub_type = self.identify_sub_type(subscriptions)
                     if sub_type == 1:
                         #MObile Only Sub
@@ -255,7 +257,7 @@ class MexSwitchPage(BoxLayout):
         self.username_input = username
         self.password_input = password
         details = cie_connect.get_mobile_only_sub_details(username.text, password.text,subscription)
-        print details
+        
         self.mobile_subscription_id = details['id']
         self.mobile_lastModified_Date = details['lastModified']
         self.mobile_createdDate = details['created']
@@ -266,7 +268,8 @@ class MexSwitchPage(BoxLayout):
                 if val['value'] != 'MexOriginating': 
                 # Mex Service Not Active for Mob Sub or Error .. 
                     result = False # Set Mex Act
-                
+                    break
+
             if val['id'] == 'mobExSub': # Test for MO sub and MEX Active
                 if val['value'] == None:
                     self.MO_SUB = False
@@ -274,24 +277,21 @@ class MexSwitchPage(BoxLayout):
                     self.MO_SUB = val['value']
 
             if val['id'] == 'cliMap':
-                debug.p('###############################################################')
                 debug.p(val['value'])
-                debug.p('###############################################################')
                 self.m2fstate.active= val['value']
-                debug.p('###############################################################')
                 debug.p(val['value'])
-                debug.p('###############################################################')
             if val['id'] == 'mobExNmr':
                 self.cli_to_map_to = val['value']
-        
-        
+               
         debug.p ("\n\n\n")
         debug.p(self.cli_to_map_to)
         debug.p(self.MO_SUB)
         debug.p(self.m2fstate.active)
         debug.p(self.username_input.text)
+        debug.p('mobile_subscription_id')
         debug.p(self.mobile_subscription_id)
         debug.p(self.mobile_lastModified_Date)
+        debug.p(self.mobile_number)
         return result
 
     def getSubscriptionMexSettingsFixed(self, username, password, subscription):
@@ -311,6 +311,7 @@ class MexSwitchPage(BoxLayout):
                 if val['value'] != 'MexTerminating': 
                 # Mex Service Not Active for Mob Sub or Error .. 
                     result = False # Set Mex Act
+                    break
                 
             if val['id'] == 'mobExTSub': # Test for MO sub and MEX Active
                 if val['value'] == None:
@@ -337,40 +338,46 @@ class MexSwitchPage(BoxLayout):
         
         return result
 
+    def f2mpopup(self):
+        """ Function to present f2m POPUP
+        """
+        debug.p('FUNC: f2mpopup in MexSwitchPage Class')
+        if self.f2mstate.active:
+            mesg = ("All calls will be diverted to 0{} ".format(self.number_to_forward_to))
+        else:
+            mesg = ("Calls to 0{}  are not forwarded.").format(self.fixed_subscription_id[2:])
+        popup = Popup(title='Fixed Line Call Diversion Presentation',
+        content=Label(text=mesg),
+        size_hint=(None, None), size=(400, 400))    
+        popup.open()
+        return
+
+    def m2fpopup(self):
+        """ Function to present m2f POPUP
+        """
+        debug.p('FUNC: m2fpopup in MexSwitchPage Class')
+        if self.m2fstate.active:
+            mesg = ("Hi, 0{} will now be presented as CLI ".format(self.cli_to_map_to))
+        else:
+            mesg = ("Fixed Number Presentation is not active")
+        popup = Popup(title='Mobile to Fixed Number Presentation',
+        content=Label(text=mesg),
+        size_hint=(None, None), size=(400, 400))
+        popup.open()
+        return
+
+
     def setF2MDiversionActive(self):
         debug.p("FUNC ::::    MexSwitchPage.setF2MDiversionActive")
-        print "**********ACTIVATE F2M Divert          " + str(self.f2mstate.active)
+        debug.p("**********ACTIVATE F2M Divert          " + str(self.f2mstate.active))
 
         results = cie_connect.changeMexF2MState(self.username_input.text, self.password_input.text, 
             self.fixed_subscription_href, self.f2mstate.active, self.fixed_lastModified_Date, 
             self.fixed_createdDate, self.fixed_subscription_id )
 
         #debug.p(results)
-	try:
-            vibrator.vibrate(1)
-        except:
-            popup = Popup(title='<setF2MDiversionActive></setF2MDiversionActive>',
-            content=Label(text='setF2MDiversionActive'),
-            size_hint=(None, None), size=(400, 400))	
-            popup.open()            
-            pass
-        finally:
-            return
-
-    def setM2FPresentationActive(self):
-        debug.p("FUNC ::::    MexSwitchPage.setM2FPresentationActive")
-        print "###################ACTIVATE M2F Presentation" + str(self.m2fstate.active)
-        
-        results = cie_connect.changeMexM2FState(self.username_input.text, self.password_input.text, 
-            self.mobile_subscription_href, self.m2fstate.active, self.mobile_lastModified_Date,
-            self.mobile_createdDate, self.mobile_subscription_id )
-
-        #debug.p(results)
-        try:
-            #vibrator.vibrate(2)
-            # 'autoclass' takes a java class and gives it a Python wrapper
-         
-
+    	try:
+            #vibrator.vibrate(1)
             # Context is a normal java class in the Android API
             Context = autoclass('android.content.Context')
 
@@ -385,12 +392,42 @@ class MexSwitchPage(BoxLayout):
             vibrator = activity.getSystemService(Context.VIBRATOR_SERVICE)
 
             vibrator.vibrate(500)  # The value is in milliseconds - this is 10s
+
+            self.f2mpopup() 
         except:
-            popup = Popup(title='vibrate 500',
-            content=Label(text='setM2FPresentationActive'),
-            size_hint=(None, None), size=(400, 400))
-            popup.open() 
-            
+            self.f2mpopup() 
+        finally:
+            return
+
+    def setM2FPresentationActive(self):
+        debug.p("FUNC ::::    MexSwitchPage.setM2FPresentationActive")
+        debug.p("###################ACTIVATE M2F Presentation" + str(self.m2fstate.active))
+        
+        results = cie_connect.changeMexM2FState(self.username_input.text, self.password_input.text, 
+            self.mobile_subscription_href, self.m2fstate.active, self.mobile_lastModified_Date,
+            self.mobile_createdDate, self.mobile_subscription_id )
+
+        #debug.p(results)
+        try:
+            #vibrator.vibrate(2)
+            # 'autoclass' takes a java class and gives it a Python wrapper
+            # Context is a normal java class in the Android API
+            Context = autoclass('android.content.Context')
+
+            # PythonActivity is provided by the Kivy bootstrap app in python-for-android
+            PythonActivity = autoclass('org.renpy.android.PythonActivity')
+
+            # The PythonActivity stores a reference to the currently running activity
+            # We need this to access the vibrator service
+            activity = PythonActivity.mActivity
+
+            # This is almost identical to the java code for the vibrator
+            vibrator = activity.getSystemService(Context.VIBRATOR_SERVICE)
+
+            vibrator.vibrate(500)  # The value is in milliseconds - this is 10s
+            self.m2fpopup()
+        except:
+            self.m2fpopup()
             pass
         finally:
             return
