@@ -356,8 +356,13 @@ class MexSwitchPage(BoxLayout):
         """ Function to present m2f POPUP
         """
         debug.p('FUNC: m2fpopup in MexSwitchPage Class')
+        debug.p(self.cli_to_map_to)
         if self.m2fstate.active:
-            mesg = ("Hi, 0{} will now be presented as CLI ".format(self.cli_to_map_to))
+            if(self.cli_to_map_to):
+                mesg = ("Hi, 0{} will now be presented as CLI ".format(self.cli_to_map_to))
+            else:
+                self.getSubscriptionMexSettingsMobile(self.username_input, self.password_input, self.mobile_number_href)
+                mesg = ("Hi, 0{} will now be presented as CLI ".format(self.cli_to_map_to))
         else:
             mesg = ("Fixed Number Presentation is not active")
         popup = Popup(title='Mobile to Fixed Number Presentation',
@@ -407,7 +412,7 @@ class MexSwitchPage(BoxLayout):
             self.mobile_subscription_href, self.m2fstate.active, self.mobile_lastModified_Date,
             self.mobile_createdDate, self.mobile_subscription_id )
 
-        #debug.p(results)
+        debug.p(results)
         try:
             #vibrator.vibrate(2)
             # 'autoclass' takes a java class and gives it a Python wrapper
