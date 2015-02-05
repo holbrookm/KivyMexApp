@@ -7,7 +7,7 @@ title = MeX Application
 package.name = mexapp
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = org.test
+package.domain = eircom.net
 
 # (str) Source code where the main.py live
 source.dir = .
@@ -29,7 +29,7 @@ source.include_exts = py,png,jpg,kv,atlas
 #version.filename = %(source.dir)s/main.py
 
 # (str) Application versioning (method 2)
-version = 1.2.6
+version = 1.2.7
 
 # (list) Application requirements
 # comma seperated e.g. requirements = sqlite3,kivy

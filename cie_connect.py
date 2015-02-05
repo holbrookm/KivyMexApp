@@ -5,6 +5,7 @@ from classMexMobileOnly import MexSubscription, Attributes, jdefault
 
 
 testplant1=  '172.30.1.1'
+#testplant1 = '172.30.2.3'
 
 def cie_connect(username, password):
     prov = class_cie_con_mod.cie_prov( str(testplant1 + ':8182'), "/cie-rest/provision", username, password)

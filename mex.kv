@@ -116,25 +116,38 @@ MexRoot:
             BoxLayout:
                 orientation: "horizontal"
                 Label:
-                    size_hint_x: .3
+                    size_hint_x: .1
                     text: ''
-                Button:
-                    size_hint_x: .2
-                    text: "Press to Login"
+                ColorDownButton:
+                    size_hint_x: .8
+                    #text: "Press to Login"
                     font_size: min(self.height, self.width)/5
-                    color: .3,.3,.3,1
-                    background_color: 3,1.4, .4,1
-                    on_press: app.root.go_login(username_box, password_box)
+                    #color: .3,.3,.3,1
+                    #background_color: 3,1.4, .4,1
+                    #background_down: 'images/logo-placeholder.gif'
+                    on_release:
+                        app.root.go_login(username_box, password_box)
                 Label:
-                    size_hint_x: .3
+                    size_hint_x: .1
                     text: ''
 
         #DUMMY LAYOUT TO TAKE UP SPACE
         BoxLayout:  
             orientation: "horizontal"
-            size_hint_x: 1
-            size_hint_y: 1
-            MarcLabel:
+            BoxLayout:
+                orientation: "horizontal"
+                Label:
+                    size_hint_x: 1
+                    text:''
+                Label:
+                    text: "IPR :- Marc Holbrook © "
+                    #font_size: min(self.height, self.width)/5
+                    font_size: '20dp'
+                    color: 0x77 / 255., 0x6e / 255., 0x65 / 255., 1.
+                    #bold: True
+                    #pos: 10, 10
+                    #valign:'middle'
+            
             
                
 #<BoxLayout>
@@ -157,12 +170,13 @@ MexRoot:
 
 <MarcLabel>
     Label:
-        text: " Copyright Marc Holbrook © "
-        font_size: min(self.height, self.width) / 3.
+        text: "IPR :- Marc Holbrook © "
+        #font_size: min(self.height, self.width)/5
+        font_size: '20dp'
         color: 0x77 / 255., 0x6e / 255., 0x65 / 255., 1.
         #bold: True
-        halign: 'justify'
-        valign:'middle'
+        #pos: 10, 10
+        #valign:'middle'
 
 #BEGIN MEX SWITCH PAGE
 <MexSwitchPage>:
@@ -182,18 +196,20 @@ MexRoot:
 
         BoxLayout:
             orientation: "vertical"
+            size_hint_y: 1
             Label:
                 id: fixed_number_sub
-                font_size: min(self.height, self.width)/5
+                font_size: min(self.height, self.width)/4
                 text: "[color=606060][b]Fixed Subscription 0{}[/b][/color]".format(root.fixed_subscription_id[2:])
                 markup: True
-                pos_hint: {'x': -0.2, 'y': 0.0}
-    
+                #pos_hint: {'x': -0.2, 'y': 0.0}
+                
 
             BoxLayout:
                 orientation: "horizontal" 
+                size_hint_y: 1
                 Label:
-                    font_size: min(self.height, self.width)/8
+                    font_size: min(self.height, self.width)/5
                     text: "[color=606060][b]Divert to  0{}[/b][/color]".format(root.number_to_forward_to)
                     markup: True
     
@@ -205,16 +221,17 @@ MexRoot:
 
             Label:
                 id: mobile_number_sub    
-                font_size: min(self.height, self.width)/5
-                text: "[color=606060][b]Mobile Subscription 0{}[/b][/color]".format(root.cli_to_map_to)
+                font_size: min(self.height, self.width)/4
+                text: "[color=606060][b]Mobile Subscription 0{}[/b][/color]".format(root.mobile_subscription_id[2:])
                 markup: True
-                pos_hint: {'x': -0.2, 'y': 0.0}
+                #pos_hint: {'x': -0.0, 'y': 0.0}
+                pos: 1,1
 
-                
             BoxLayout:
                 orientation: "horizontal" 
+                size_hint_y: 1
                 Label:
-                    font_size: min(self.height, self.width)/8
+                    font_size: min(self.height, self.width)/5
                     text: "[color=606060][b]Present CLI as  0{}[/b][/color]".format(root.number_to_forward_to)
                     markup: True
 
@@ -222,6 +239,9 @@ MexRoot:
                     id: m2fpresent
                     active: root.m2fstate.active
                     on_active: root.setM2FPresentationActive()
+            BoxLayout:
+                orientation: "horizontal"
+                size_hint_y: 4
 
 
 #END MEX SWITCH PAGE
@@ -230,12 +250,22 @@ MexRoot:
 <IncorrectPasswordPage>
     orientation: "vertical"
 
+    #Label:
+    #    font_size: min(self.height, self.width)/10
+        #text: "[color=FF9900][b]Your Username/Password Details are incorrect.\n\n Please review.[/b][/color]"
+    #    markup: True
+
+    Image:
+        source: "./images/Eircom.png"
+
     Label:
-        text:"Your Username/Password Details are incorrect. Please review."
-    Label:
-        text: root.login_status
+        font_size: min(self.height, self.width)/10
+        text: "[color=FF9900][b]{}[/b][/color]".format(root.login_status)
+        markup: True
     Button:
-        text: "Press to return to LOGIN page. Review Login Details"
+        font_size: min(self.height, self.width)/10
+        text: "[color=FF9900][b]Press to return to LOGIN page.\n\n Review Login Details[/b][/color]"
+        markup: True 
         on_release: app.root.show_login_page()
 
 

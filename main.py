@@ -1,5 +1,5 @@
 from kivy.app import App
-from kivy.properties import ObjectProperty, StringProperty, BooleanProperty
+from kivy.properties import ObjectProperty, StringProperty, BooleanProperty, ListProperty
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.gridlayout import GridLayout
@@ -7,6 +7,7 @@ from kivy.network.urlrequest import UrlRequest
 from kivy.factory import Factory
 from kivy.uix.listview import ListItemButton
 from kivy.uix.switch import Switch
+from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 from kivy.uix.label import Label
 from kivy.storage.jsonstore import JsonStore 
@@ -33,6 +34,29 @@ def get_sub_number_only(number):
     number1 = number.rsplit('/', 1)
     number2 = number1[1][2:]
     return number2
+
+
+class ColorDownButton(Button):
+    """
+    Button with a possibility to change the color on on_press (similar to background_down in normal Button widget)
+    """
+    background_color_normal = ListProperty([.3,.3,.3,1])
+    background_color_down = ListProperty([.9, .5, .1, 1])
+
+    def __init__(self, **kwargs):
+        super(ColorDownButton, self).__init__(**kwargs)
+        self.background_normal = ""
+        self.background_down = ""
+        self.background_color = self.background_color_normal
+        self.text = "Press to Login"
+
+    def on_press(self):
+        self.text = "Logging In Now"
+        self.background_color = self.background_color_down
+
+    def on_release(self):
+        self.background_color = self.background_color_normal
+
 
 
 class MexRoot(BoxLayout):
@@ -134,14 +158,14 @@ class MexRoot(BoxLayout):
             conn, status = cie_connect.perform_cie_logon(self.username_input.text,self.password_input.text)
         except RuntimeError:
             print "ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR"
-            self.set_error_page("Network Error: Please check Network Connectivity!")
+            self.set_error_page("Network Error: \n Please check Network Connectivity!")
             
         else:
             if status == 401:  # Unauthorised Access/Authentication Failure
                 self.set_error_page(conn['description'])
             
             elif status ==400: # No Network available
-                self.set_error_page("Network Error: Please check Network Connectivity!")
+                self.set_error_page("Network Error: \n Please check Network Connectivity!")
 
             elif status == 200:    
                 debug.p(conn) 
@@ -153,7 +177,7 @@ class MexRoot(BoxLayout):
                     conn = cie_connect.get_list_of_mex_subs(self.username_input.text,self.password_input.text, self.accountRef)
                 except RuntimeError:
                     print "ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR"
-                    self.set_error_page("Mex Sub Error: Network Error: Please check Network Connectivity!")
+                    self.set_error_page("Mex Sub Error: Network Error:\n Please check Network Connectivity!")
                 else:
                     #debug.p(conn) 
                     subscriptions = ["{}".format(d['href']) for d in conn['results']]
@@ -161,6 +185,7 @@ class MexRoot(BoxLayout):
                     sub_type = self.identify_sub_type(subscriptions)
                     if sub_type == 1:
                         #MObile Only Sub
+                        self.set_error_page('Mobile Only Subscription Type, \n Please contact Eircom Administrator')
                         pass
                     elif sub_type ==2:
                         # Fixed & Mobile Type Sub
@@ -174,16 +199,20 @@ class MexRoot(BoxLayout):
                         if x and y == True:
                             self.add_widget(self.mex_switch_page)
                         else:
-                            self.set_error_page(' 1 Incorrect Subscription Type, Please contact Eircom Administrator')
-
+                            if x and y == False:
+                                self.set_error_page('Both Mex Not Active:\n Incorrect Subscription Type, \n Please contact Eircom Administrator')
+                            elif y == False:
+                                self.set_error_page('Fixed Mex Not Active:\n Incorrect Subscription Type, \n Please contact Eircom Administrator')
+                            else: # X Must b false logically
+                                self.set_error_page('Mobile Mex Not Active:\n Incorrect Subscription Type, \n Please contact Eircom Administrator')
                     else:
-                        self.set_error_page('2 Incorrect Subscription Type, Please contact Eircom Administrator')
+                        self.set_error_page('2 Incorrect Subscription Type, \n Please contact Eircom Administrator')
 
             else:
                 print "ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR"
                 if self.incorrect_password_page is None:
                     self.incorrect_password_page = IncorrectPasswordPage()
-                    self.incorrect_password_page.login_status = "FINAL ELSE: Network Error: Please check Network Connectivity!"
+                    self.incorrect_password_page.login_status = "FINAL ELSE: Network Error: \n Please check Network Connectivity!"
                 self.add_widget(self.incorrect_password_page)
         return 
 
@@ -341,15 +370,26 @@ class MexSwitchPage(BoxLayout):
     def f2mpopup(self):
         """ Function to present f2m POPUP
         """
+
         debug.p('FUNC: f2mpopup in MexSwitchPage Class')
         if self.f2mstate.active:
             mesg = ("All calls will be diverted to 0{} ".format(self.number_to_forward_to))
         else:
             mesg = ("Calls to 0{}  are not forwarded.").format(self.fixed_subscription_id[2:])
-        popup = Popup(title='Fixed Line Call Diversion Presentation',
-        content=Label(text=mesg),
-        size_hint=(None, None), size=(400, 400))    
+    
+        btnclose = Button(text='Back', size_hint_y=None, height=50)
+        content = BoxLayout(orientation='vertical')
+        #content.add_widget(Label(text=mesg, font_size= max(self.height, self.width)/10))
+        content.add_widget(btnclose)
+
+        the_title = ("Fixed Line Call Diversion Presentation \n\n\n\n {}\n\n\n\n").format(mesg)
+        popup = Popup(title=the_title,
+        #content=Label(text=mesg),
+        content = content, 
+        size_hint=(.8, .8), size = (0,0), separator_color = [0.9,0.9,0.9,1],
+        title_color = [.9,.9,.9,1], background = './images/back.png') 
         popup.open()
+        btnclose.bind(on_release=popup.dismiss)
         return
 
     def m2fpopup(self):
@@ -365,10 +405,20 @@ class MexSwitchPage(BoxLayout):
                 mesg = ("Hi, 0{} will now be presented as CLI ".format(self.cli_to_map_to))
         else:
             mesg = ("Fixed Number Presentation is not active")
-        popup = Popup(title='Mobile to Fixed Number Presentation',
-        content=Label(text=mesg),
-        size_hint=(None, None), size=(400, 400))
+
+        btnclose = Button(text='Back', size_hint_y=None, height=50)
+    
+        content = BoxLayout(orientation='vertical')
+        #content.add_widget(Label(text=mesg, font_size = '20sp'))
+        content.add_widget(btnclose)
+        
+        the_title = ("Mobile to Fixed Number Presentation \n\n\n\n {} \n\n\n\n").format(mesg)
+        popup = Popup(title= the_title ,
+        #content=Label(text=mesg),
+        content = content, 
+        size_hint=(.8, .8), size=(0,0 ), background = './images/back.png')
         popup.open()
+        btnclose.bind(on_release=popup.dismiss)
         return
 
 
