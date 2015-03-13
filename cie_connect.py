@@ -2,6 +2,7 @@ import class_cie_con_mod
 import json
 from collections import defaultdict
 from classMexMobileOnly import MexSubscription, Attributes, jdefault
+import debug
 
 
 testplant1=  '172.30.1.1'
@@ -44,6 +45,8 @@ def changeMexF2MState(username, password, href, state, lastModified, created, id
 	json_string = setSub(id_property, lastModified, created, allowTags, attributes)
 
 	exitCode = ngin.put_cie_json_object(href, json_string)
+	debug.p(exitCode)
+
 	if exitCode == 0:
 		return True
 	else:
@@ -63,6 +66,7 @@ def changeMexM2FState(username, password, href, state, lastModified, created, id
 	json_string = setSub(id_property, lastModified, created, allowTags, attributes)
 
 	exitCode = ngin.put_cie_json_object(href, json_string)
+	debug.p(exitCode)
 	if exitCode == 0:
 		return True
 	else:

@@ -140,6 +140,18 @@ class MexRoot(BoxLayout):
             result = 0
         return result
 
+    def check_resuls(self, status):
+        """ Take result of NGIN connect and check for errors
+        """
+        if status == 401:  # Unauthorised Access/Authentication Failure
+                self.set_error_page(conn['description'])
+            
+        elif status ==400: # No Network available
+            self.set_error_page("Network Error: \n Please check Network Connectivity!")
+
+        elif status == 200:   
+            return
+
 
     def go_login(self, username, password):
         debug.p("FUNC ::::    MexRoot.go_login")
@@ -252,6 +264,7 @@ class MexRoot(BoxLayout):
 
 class MexSwitchPage(BoxLayout):
     debug.p("CLASS ::::    MexSwitchPage")
+    mex_root_page = ObjectProperty()
     fixed_number = StringProperty()
     mobile_number = StringProperty()
     cli_to_map_to = StringProperty()
@@ -370,14 +383,13 @@ class MexSwitchPage(BoxLayout):
     def f2mpopup(self):
         """ Function to present f2m POPUP
         """
-
         debug.p('FUNC: f2mpopup in MexSwitchPage Class')
         if self.f2mstate.active:
             mesg = ("All calls will be diverted to 0{} ".format(self.number_to_forward_to))
         else:
             mesg = ("Calls to 0{}  are not forwarded.").format(self.fixed_subscription_id[2:])
     
-        btnclose = Button(text='Back', size_hint_y=None, height=50)
+        btnclose = Button(text='Back', size_hint_y=None, height='50sp')
         content = BoxLayout(orientation='vertical')
         #content.add_widget(Label(text=mesg, font_size= max(self.height, self.width)/10))
         content.add_widget(btnclose)
@@ -406,7 +418,7 @@ class MexSwitchPage(BoxLayout):
         else:
             mesg = ("Fixed Number Presentation is not active")
 
-        btnclose = Button(text='Back', size_hint_y=None, height=50)
+        btnclose = Button(text='Back', size_hint_y=None, height='100sp')
     
         content = BoxLayout(orientation='vertical')
         #content.add_widget(Label(text=mesg, font_size = '20sp'))
@@ -421,38 +433,68 @@ class MexSwitchPage(BoxLayout):
         btnclose.bind(on_release=popup.dismiss)
         return
 
+    def error_popup(self):
+        """ Function to present ERROR POPUP
+        """
+        debug.p('FUNC: error_popup in MexSwitchPage Class')
+        
+        mesg = ("An unusual error has occurred. \n Please report to Eircom.\n Close Application")
+
+        btnclose = Button(text='Back', size_hint_y=None, height='100sp')
+    
+        content = BoxLayout(orientation='vertical')
+        #content.add_widget(Label(text=mesg, font_size = '20sp'))
+        content.add_widget(btnclose)
+        
+        the_title = ("Mobile to Fixed Number Presentation \n\n\n\n {} \n\n\n\n").format(mesg)
+        popup = Popup(title= the_title ,
+        #content=Label(text=mesg),
+        content = content, 
+        size_hint=(.8, .8), size=(0,0 ), background = './images/back.png')
+        popup.open()
+        #btnclose.bind(on_release=App.get_running_app().stop())
+        return
+
 
     def setF2MDiversionActive(self):
         debug.p("FUNC ::::    MexSwitchPage.setF2MDiversionActive")
         debug.p("**********ACTIVATE F2M Divert          " + str(self.f2mstate.active))
 
+        if self.mex_root_page is None:
+            self.mex_root_page = MexRoot()
+
         results = cie_connect.changeMexF2MState(self.username_input.text, self.password_input.text, 
             self.fixed_subscription_href, self.f2mstate.active, self.fixed_lastModified_Date, 
             self.fixed_createdDate, self.fixed_subscription_id )
 
-        #debug.p(results)
-    	try:
-            #vibrator.vibrate(1)
-            # Context is a normal java class in the Android API
-            Context = autoclass('android.content.Context')
 
-            # PythonActivity is provided by the Kivy bootstrap app in python-for-android
-            PythonActivity = autoclass('org.renpy.android.PythonActivity')
+        if results == True:  # Unauthorised Access/Authentication Failure
+            try:
+                #vibrator.vibrate(1)
+                # Context is a normal java class in the Android API
+                Context = autoclass('android.content.Context')
 
-            # The PythonActivity stores a reference to the currently running activity
-            # We need this to access the vibrator service
-            activity = PythonActivity.mActivity
+                # PythonActivity is provided by the Kivy bootstrap app in python-for-android
+                PythonActivity = autoclass('org.renpy.android.PythonActivity')
 
-            # This is almost identical to the java code for the vibrator
-            vibrator = activity.getSystemService(Context.VIBRATOR_SERVICE)
+                # The PythonActivity stores a reference to the currently running activity
+                # We need this to access the vibrator service
+                activity = PythonActivity.mActivity
 
-            vibrator.vibrate(500)  # The value is in milliseconds - this is 10s
+                # This is almost identical to the java code for the vibrator
+                vibrator = activity.getSystemService(Context.VIBRATOR_SERVICE)
 
-            self.f2mpopup() 
-        except:
-            self.f2mpopup() 
-        finally:
+                vibrator.vibrate(500)  # The value is in milliseconds - this is 10s
+
+                self.f2mpopup() 
+            except:
+                self.f2mpopup() 
+            finally:
+                return
+        else:
+            self.error_popup()
             return
+
 
     def setM2FPresentationActive(self):
         debug.p("FUNC ::::    MexSwitchPage.setM2FPresentationActive")
